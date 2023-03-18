@@ -2,7 +2,7 @@
 
 # SynologyChatbotGPT
 
-本项目使用 OpenAI API 和 Synology Chat 套件构建了一个基于 ChatGPT-3.5 的聊天机器人。
+一个 Python script，使用 OpenAI API 和 Synology Chat 套件构建了一个基于 ChatGPT-3.5 的聊天机器人。
 
 
 使用说明
