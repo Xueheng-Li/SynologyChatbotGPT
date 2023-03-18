@@ -31,7 +31,7 @@ OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
 
 ```
 
-2. 申请并设置 OpenAI API 密钥，用您的 OpenAI API 密钥替换`gptchatbot.py`中的`openai.api_key`：
+2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`gptchatbot.py`中的`openai.api_key`：
     
 
 python
