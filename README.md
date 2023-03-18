@@ -10,52 +10,50 @@
 
 1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
 
-- 登录 Synology Chat 管理面板。确保您具有管理员权限。
+    - 登录 Synology Chat 管理面板。确保您具有管理员权限。
 
-- 在左侧菜单中，选择「整合」（Integration）。
+    - 在左侧菜单中，选择「整合」（Integration）。
 
-- 点击右上角的「+ 创建」按钮，然后选择「创建新机器人」。
+    - 点击右上角的「+ 创建」按钮，然后选择「创建新机器人」。
 
-- 为您的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
+    - 为您的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
 
-- 在创建的机器人详情页面，找到「传出 Webhook」部分。点击「启用」，并将 Webhook URL 设置为您在代码中设置的 URL（即 `http://your_server_ip:5005/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址）。点击「更新」以保存更改。
+    - 在创建的机器人详情页面，找到「传出 Webhook」部分。点击「启用」，并将 Webhook URL 设置为您在代码中设置的 URL（即 `http://your_server_ip:5005/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址）。点击「更新」以保存更改。
 
-- 在机器人详情页面的「传入 Webhook」部分，点击「启用」。此时，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`gptchatbot.py`中相关变量：
+    - 在机器人详情页面的「传入 Webhook」部分，点击「启用」。此时，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`gptchatbot.py`中相关变量：
 
-```
-INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
-OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
+    ```python
+    INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
+    OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
 
-```
+    ```
 
 2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`gptchatbot.py`中的`openai.api_key`：
     
 
-python
-
-```python
-openai.api_key = "your_api_key_here"
-```
+    ```python
+    openai.api_key = "your_api_key_here"
+    ```
     
 3.  安装所需的库：
 
-在bash shell中运行：
+    在bash shell中运行：
 
-```
-pip install openai requests flask
-```
-或
-```
-pip install -r requirements.txt 
-```
+    ```bash
+    pip install openai requests flask
+    ```
+    或
+    ```bash
+    pip install -r requirements.txt 
+    ```
 
 4.  运行 Python 文件：
 
-在bash shell中运行：
+    在bash shell中运行：
 
-```bash
-python gptchatbot.py
-```
+    ```bash
+    python gptchatbot.py
+    ```
 
 5. 在 Synology Chat 中与机器人进行对话。根据您的输入，机器人将使用OpenAI的 gpt-3.5-turbo 模型生成回复。
 
@@ -74,12 +72,10 @@ python gptchatbot.py
 
 2.  设置 Synology Chat 机器人详细信息：用您的 Synology Chat 机器人的详细信息替换下面的占位符。
 
-python
-
-```python
-INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
-OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
-```
+    ```python
+    INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
+    OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
+    ```
 
 3.  创建一个用于存储内存中对话历史的字典 `conversation_history`。
     
