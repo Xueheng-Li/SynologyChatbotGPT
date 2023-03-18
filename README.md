@@ -25,7 +25,7 @@ A Python script that creates a chatbot deployed on a Synology nas and powered by
 
 - 在机器人详情页面的「传入 Webhook」部分，点击「启用」。此时，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`gptchatbot.py`中相关变量：
 
-```python
+```
 INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
 OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
 
