@@ -1,11 +1,8 @@
 
 
 # SynologyChatbotGPT
-A Python script that creates a chatbot deployed on a Synology nas and powered by OpenAI's gpt-3.5-turbo model.
 
-
-
-本文档详细介绍了如何使用 OpenAI API 和 Synology Chat 套件构建一个基于 ChatGPT-3.5 的聊天机器人。
+本项目使用 OpenAI API 和 Synology Chat 套件构建了一个基于 ChatGPT-3.5 的聊天机器人。
 
 
 使用说明
