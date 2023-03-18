@@ -1,6 +1,7 @@
+
+
 # SynologyChatbotGPT
 A Python script that creates a chatbot deployed on a Synology nas and powered by OpenAI's gpt-3.5-turbo model.
-
 
 
 
@@ -60,28 +61,41 @@ OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
 使用说明
 ----
 
-1.  将上述代码保存为一个 Python 文件（例如：`chatbot.py`）。
+1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
+
+（1）登录 Synology Chat 管理面板。确保您具有管理员权限。
+（2）在左侧菜单中，选择「整合」（Integration）。
+（3）点击右上角的「+ 创建」按钮，然后选择「创建新机器人」。
+（4）为您的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
+（5）在创建的机器人详情页面，找到「传出 Webhook」部分。点击「启用」，并将 Webhook URL 设置为您在代码中设置的 URL（即 `http://your_server_ip:5005/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址）。点击「更新」以保存更改。
+（6）在机器人详情页面的「传入 Webhook」部分，点击「启用」。此时，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`gptchatbot.py`中相关变量：
+```python
+INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
+OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
+
+```
     
 2.  安装所需的库：
-    
 
-bash
+在bash shell中运行：
 
-```bash
+```
 pip install openai requests flask
+```
+或
+```
+pip install -r requirements.txt 
 ```
 
 3.  运行 Python 文件：
 
-bash
+在bash shell中运行：
 
 ```bash
-python chatbot.py
+python gptchatbot.py
 ```
 
-4.  将您的机器人设置为使用 `http://your_server_ip:5005/webhook` 作为 Webhook URL。服务器 IP 应该是运行上述代码的机器的 IP 地址。
-    
-5.  在 Synology Chat 中与机器人进行对话。根据您的输入，机器人将使用 ChatGPT-3.5 生成回复。
+4. 在 Synology Chat 中与机器人进行对话。根据您的输入，机器人将使用OpenAI的 gpt-3.5-turbo 模型生成回复。
 
 注意事项
 ----
@@ -102,6 +116,4 @@ python chatbot.py
     
 *   本示例代码中未实现对输入和输出的过滤和检查。在实际应用中，请确保对输入进行验证和过滤，以防止潜在的安全问题。
     
-
-如有其他问题，请随时提问。
 
