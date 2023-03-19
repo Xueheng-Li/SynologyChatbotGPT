@@ -2,7 +2,7 @@
 
 # 介绍
 
-一个 Python script，使用 OpenAI API 和群晖 Synology Chat 套件构建了一个基于 ChatGPT-3.5 的聊天机器人。
+一个 Python script，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个基于 ChatGPT-3.5 的聊天机器人。
 
 
 使用说明
