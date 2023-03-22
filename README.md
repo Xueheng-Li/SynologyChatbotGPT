@@ -2,7 +2,7 @@
 
 # 介绍
 
-一个 Python 项目，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个聊天机器人，同时基于 ChatGPT-3.5 文本语言模型和 Edits 图片生成模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力 —— *it is more than ChatGPT*.
+一个 Python 项目，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个聊天机器人，同时整合了 ChatGPT-3.5 文本语言模型和 Edits 图片生成模型，并具备即时在本地运行 Python 代码和 Bash 命令的能力 —— *it is more than ChatGPT*.
 
 它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
 
