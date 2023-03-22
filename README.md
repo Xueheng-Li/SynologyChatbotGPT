@@ -6,7 +6,7 @@
 
 它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
 
-## 更新说明：
+## 更新说明
 1. 对于版本 v0.1，你只需下载和更改 `gptchatbot.py` 中的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）即可。
 
 2. 对于 v0.2 版本，所有 .py 结尾的文件都需要拉取下载到本地，然后所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
