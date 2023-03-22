@@ -15,6 +15,9 @@ chatbot_character = '''You are a AI assistant, a friend of mine, trying to help 
     If the user talks to you in English, you respond in English. If the user talks to you in Chinese, you respond in Chinese. 
     Be talkative, personable, friendly, positive, and speak always with love.'''
 
+# Default port 5008
+PORT = 5008
+
 max_conversation_length=20 # if a conversation has more than 20 exchanges, then refresh the conversation history and start a new one. 
 max_time_gap=15 # if a conversation is idle for more than 15 minunites, then refresh the conversation history and start a new one. 
 
@@ -140,4 +143,4 @@ def webhook():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5005)
+    app.run(host="0.0.0.0", port=PORT)
