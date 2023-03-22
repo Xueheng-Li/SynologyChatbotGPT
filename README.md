@@ -42,13 +42,8 @@
 
     - 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
 
-    - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`settings.py`中的相关变量：
-
-    ```python
-    INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
-    OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
-
-    ```
+    - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
+    
     - 最后点击「确认」（OK）保存。
 
 2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
@@ -56,6 +51,27 @@
 
     ```python
     openai_api_key = "your_api_key_here"
+    ```
+    
+3. 更改`settings.py`中的其他设置：
+
+    ```
+    # Replace with your Synology Chat bot details
+    INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"
+    OUTGOING_WEBHOOK_TOKEN = "your_OUTGOING_WEBHOOK_TOKEN"
+
+    # Your server IP address
+    your_server_ip = 'your_server_ip'
+
+    # Port
+    PORT = 5008
+
+    # System prompt sets up the character of the chatbot; change it if you want
+    chatbot_character = '''You are a AI assistant'''
+
+    # Set maximum conversation exchanges or idle time gap to start a new conversatoin
+    max_conversation_length = 20 
+    max_time_gap = 15 # minutes
     ```
     
 3.  安装所需的库：
