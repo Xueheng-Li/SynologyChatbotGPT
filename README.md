@@ -4,6 +4,9 @@
 
 一个 Python script，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个基于 ChatGPT-3.5 的聊天机器人。
 
+重要说明：
+1、对于版本 v0.1，你只需下载和更改 gptbot.py 中的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）即可。
+2、对于 v0.2 及以上的版本，所有 .py 结尾的文件都需要拉取下载到本地，然后所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
 使用说明
 ----
