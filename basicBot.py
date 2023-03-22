@@ -96,7 +96,7 @@ def generate_gpt_response(user_id, username, message, max_conversation_length=ma
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
-        temperature=0.5,
+        temperature=temperature,
     )
 
     response_role = response['choices'][0]['message']['role']
