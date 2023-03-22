@@ -90,7 +90,7 @@
     python basicBot.py
     ```
     
-    或`talentBot`：
+    使用`talentBot`时先在`talentBot.py'所有文件夹新创建一个名为`static`的文件夹，然后运行：
 
     ```bash
     python talentBot.py
