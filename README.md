@@ -40,7 +40,7 @@
 
     - 为你的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
 
-    - 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:5005/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址）。
+    - 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
 
     - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`settings.py`中的相关变量：
 
