@@ -4,9 +4,10 @@
 
 一个 Python script，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个基于 ChatGPT-3.5 的聊天机器人。
 
-重要说明：
-1、对于版本 v0.1，你只需下载和更改 gptbot.py 中的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）即可。
-2、对于 v0.2 及以上的版本，所有 .py 结尾的文件都需要拉取下载到本地，然后所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
+## 重要说明：
+1. 对于版本 v0.1，你只需下载和更改 gptbot.py 中的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）即可。
+
+2. 对于 v0.2 及以上的版本，所有 .py 结尾的文件都需要拉取下载到本地，然后所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
 使用说明
 ----
@@ -23,7 +24,7 @@
 
     - 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为您在代码中设置的 URL（即 `http://your_server_ip:5005/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址）。
 
-    - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`gptchatbot.py`中相关变量：
+    - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token。请将这两个值复制并替换`settings.py`中的相关变量（v0.1版本直接更改`gptchatbot.py`中的变量即可）：
 
     ```python
     INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
@@ -32,7 +33,7 @@
     ```
     - 最后点击「确认」（OK）保存。
 
-2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`gptchatbot.py`中的`openai.api_key`：
+2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`（v0.1版本直接更改`gptchatbot.py`）：
     
 
     ```python
