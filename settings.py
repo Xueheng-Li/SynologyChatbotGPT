@@ -8,7 +8,7 @@ INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"
 OUTGOING_WEBHOOK_TOKEN = "your_OUTGOING_WEBHOOK_TOKEN"
 
 
-# Your server IP address
+# Your server IP address where you run this bot (more explicitly, the ip of the server where you put this script)
 your_server_ip = 'your_server_ip'
 
 
