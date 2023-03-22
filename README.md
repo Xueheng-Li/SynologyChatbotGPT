@@ -62,7 +62,7 @@
     INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"
     OUTGOING_WEBHOOK_TOKEN = "your_OUTGOING_WEBHOOK_TOKEN"
 
-    # Your server IP address
+    # Your server IP address；你运行本聊天机器人的服务器 ip，如果你就在同一台群晖上跑这个程序，那就是群晖的内网 ip；如果是另一台机子上运行，就是另一台机子的 ip
     your_server_ip = 'your_server_ip'
 
     # Port
