@@ -60,48 +60,6 @@
 
 
 
-代码文件说明
-------
-
-1.  导入所需的库：
-    
-    *   `json`: 处理 JSON 数据格式
-    *   `requests`: 发送 HTTP 请求
-    *   `openai`: OpenAI 官方库，用于与 OpenAI API 交互
-    *   `flask`: 构建 Web 应用程序
-
-
-2.  设置 Synology Chat 机器人详细信息：用您的 Synology Chat 机器人的详细信息替换下面的占位符。
-
-    ```python
-    INCOMING_WEBHOOK_URL = "your_incoming_webhook_url_here"
-    OUTGOING_WEBHOOK_TOKEN = "your_outgoing_webhook_token_here"
-    ```
-
-3.  创建一个用于存储内存中对话历史的字典 `conversation_history`。
-    
-4.  定义 `process_synology_chat_message(event)` 函数，处理从 Synology Chat 收到的消息：
-    
-    *   验证令牌是否有效。
-    *   获取用户 ID 和消息文本。
-    *   调用 `generate_gpt_response(user_id, text)` 函数生成 ChatGPT 响应。
-    *   将响应发送回 Synology Chat。
-5.  定义 `generate_gpt_response(user_id, message, max_conversation_length=10, refresh_keywords=None)` 函数，生成 ChatGPT 响应：
-    
-    *   根据给定的关键字刷新对话（默认为：`["new", "refresh", "00", "restart", "刷新", "新话题"]`）。
-    *   维护与每个用户的对话历史记录。
-    *   生成一个包含系统提示和聊天消息的 `messages` 列表。
-    *   调用 OpenAI API，向其发送 `messages`，并接收生成的响应。
-    *   如果响应完成，将响应添加到对话历史中并返回响应文本。
-6.  定义 `handle_request(event)` 函数，处理传入的事件：
-    
-    *   检查事件是否为空。
-    *   调用 `process_synology_chat_message(event)` 函数处理事件。
-7.  使用 Flask 创建一个 Web 应用程序，并定义一个路由 `/webhook`，处理从 Synology Chat 发送的 POST 请求。
-    
-8.  在主函数中运行 Flask 应用程序。
-    
-
 注意事项
 ----
 
