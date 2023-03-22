@@ -25,6 +25,8 @@
 
 
     2. `basicBot.py`只具备上述`talentBot.py`的第一项功能，但是不需要以特定关键词为开头，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
+
+    3. 目前 basicBot 和 talentBot 公用同一个 settings.py 文件，所以两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置的一遍所有文件，就能两个或者多个机器人同时运行。
     
 
 使用说明
