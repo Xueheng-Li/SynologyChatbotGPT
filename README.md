@@ -43,11 +43,7 @@
 3.  安装所需的库：
 
     在bash shell中运行：
-
-    ```bash
-    pip install openai requests flask
-    ```
-    或
+    
     ```bash
     pip install -r requirements.txt 
     ```
