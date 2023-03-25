@@ -77,22 +77,37 @@ def process_synology_chat_message(event):
             print(f"img_filename = {img_filename}")
             send_back_message(user_id, text_description, image_filename=img_filename)
             
-        elif code_results["gpt"]:
+        else:
             print("Collect messages to send to gpt")
             # generate an instant pre-response to signal the bot is at work
-            send_back_message(user_id, "收到👌🏻我正在思考怎么回答你😃")
+            send_back_message(user_id, "...")
             # print(f"python_or_bash_code(message): {python_or_bash_code(message)}")
             # get gpt response and excute any Python code
-            response_text = generate_gpt_response(user_id, username, code_results["gpt"])
+            response_text = generate_gpt_response(user_id, username, message)
             print(f"Original response: {response_text}\n")
-            # send_back_message(user_id, response_text)
             
-            response_with_code_output = modify_response_to_include_code_output(response_text)
-            print(f"With code output: {response_with_code_output}")
-            send_back_message(user_id, response_with_code_output)
+            if re.findall(r"```python(.*?)```", response_text, re.DOTALL):
+                response_text = modify_response_to_include_code_output(response_text)
+                print(f"With code output: {response_text}")
+                
+            unsplash_text_links = re.findall(r"!\[(.*?)\]\((.*?)\)", response_text)
+            # unsplash_titles = re.findall(r"!\[(.*?)\]https://source.unsplash.com/", response_text)
+            print(f"unsplash_links = {unsplash_text_links}")
+            if unsplash_text_links:
+                # response_text = re.sub(r"!\[.*?\]\(https://source.unsplash.com/\S+\)", "", response_text)
+                send_back_message(user_id, response_text)
+                for text, link in unsplash_text_links:
+                    send_back_message(user_id, f"直接下载:{text}", image_url=link)
+                    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    filename = f"{current_time}.png"
+                    # send_back_message(user_id, "下载图片...")
+                    download_image(link, "static/" + filename)
+                    send_back_message(user_id, text, image_filename=filename)
+            else:
+                send_back_message(user_id, response_text)
             
-        else:
-            send_back_message(user_id, "请问我有滴咩可以帮到你？")
+        # else:
+        #     send_back_message(user_id, "请问我有滴咩可以帮到你？")
     
         return "Message processed"
 
@@ -107,7 +122,7 @@ def generate_gpt_response(user_id, username, message, max_conversation_length=ma
     # Check for refresh_prompt input to start a new conversation
     if refresh_keywords is None:
         refresh_keywords = ["new", "refresh", "00", "restart", "刷新", "新话题", "退下", "结束", "over"]
-    if message.strip().lower() in refresh_keywords:
+    if len(message)>0 and message.strip().lower() in refresh_keywords:
         if user_id in conversation_history:
             del conversation_history[user_id]
         return "----------------------------"
