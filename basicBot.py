@@ -12,6 +12,8 @@ openai.api_key = openai_api_key
 # In-memory conversation history storage
 conversation_history = {}
 
+# token计数
+token_count = {}
 
 def send_back_message(user_id, response_text):
 
@@ -55,15 +57,20 @@ def process_synology_chat_message(event):
 def generate_gpt_response(user_id, username, message, max_conversation_length=max_conversation_length, refresh_keywords=None, max_time_gap=max_time_gap):
     # max_conversation_length sets the maximum length for each conversation
     # refresh_keywords store the keywords to start a new conversation
-
+    global token_count
+    if username not in token_count:
+        token_count[username] = 0
 
     # Check for refresh_prompt input to start a new conversation
     if refresh_keywords is None:
         refresh_keywords = ["new", "refresh", "00", "restart", "刷新", "新话题", "退下", "结束", "over"]
+        
     if message.strip().lower() in refresh_keywords:
+        count = token_count[username]
+        del token_count[username]
         if user_id in conversation_history:
             del conversation_history[user_id]
-        return "----------------------------"
+        return f"本轮对话消耗token {count} 个\n" + "------------新的对话------------"
 
     current_timestamp = int(time.time())
     # Check if the conversation has been idle for 30 minutes (1800 seconds)
@@ -98,7 +105,10 @@ def generate_gpt_response(user_id, username, message, max_conversation_length=ma
         messages=messages,
         temperature=temperature,
     )
-
+    
+    # token计数
+    token_count[username] += int(response['usage']["total_tokens"])
+    
     response_role = response['choices'][0]['message']['role']
     if response['choices'][0]['finish_reason'] == "stop":
         response_text = response['choices'][0]['message']['content']
