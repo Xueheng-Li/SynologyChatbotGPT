@@ -70,7 +70,7 @@ def generate_gpt_response(user_id, username, message, max_conversation_length=ma
         del token_count[username]
         if user_id in conversation_history:
             del conversation_history[user_id]
-        return f"本轮对话消耗token {count} 个\n" + "------------新的对话------------"
+        return f"本轮对话消耗token：{count}个\n" + "------------新的对话------------"
 
     current_timestamp = int(time.time())
     # Check if the conversation has been idle for 30 minutes (1800 seconds)
