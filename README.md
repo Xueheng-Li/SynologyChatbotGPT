@@ -7,26 +7,25 @@
 它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
 
 ## 更新说明
-1. 对于版本 v0.1，你只需下载和更改 `gptchatbot.py` 中的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）即可。
 
-2. 对于 v0.2 及以上版本，所有 .py 结尾的文件都需要拉取下载到本地，然后所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
+对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
-3. 最新的 v0.2 及以上版本包含两个机器人`basicBot.py`和`talentBot.py`：
+最新的 v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
     
-    1. `talentBot.py`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
+1. `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
 
-        1. 默认会调用 ChatGPT-3.5 进行答复 。
-    
-        2. 以下关键词将引导机器人生成图片：`图片：`，`生成图片：`，或 `img:`；后面跟着的文本会被视为图片描述传给图片生成模型 Edits，生成图片。
-    
-        3. 以下关键词引导机器人在本地运行 Python 代码：`python:` 或 `py:` ；后面跟着的文本会被视为 Python 代码，并被机器人在本地执行。
-    
-        4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
+    1. 默认会调用 ChatGPT-3.5 进行答复 。
+
+    2. 以下关键词将引导机器人生成图片：`图片：`，`生成图片：`，或 `img:`；后面跟着的文本会被视为图片描述传给图片生成模型 Edits，生成图片。
+
+    3. 以下关键词引导机器人在本地运行 Python 代码：`python:` 或 `py:` ；后面跟着的文本会被视为 Python 代码，并被机器人在本地执行。
+
+    4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
 
 
-    2. `basicBot.py`只具备上述`talentBot.py`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
+2. `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
 
-    3. 目前 basicBot 和 talentBot 公用同一个 settings.py 文件，所以两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置的一遍所有文件，就能两个或者多个机器人同时运行。
+3. 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
     
 
 使用说明
