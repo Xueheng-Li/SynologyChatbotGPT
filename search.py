@@ -147,6 +147,12 @@ def get_gpt_response(new_message, chat_history=None, system_prompt=None):
 
 
 def llama_process(question, keywords, reindex=True, context_dir="searchResults", search_result_html=None):
+
+    if os.path.exists("./index") is False:
+        os.mkdir("./index")
+    if os.path.exists("./searchResults") is False:
+        os.mkdir("./searchResults")
+
     # Load the index from your saved index.json file
     index_file = f"index/{keywords}.json"
 
@@ -209,7 +215,7 @@ def llama_process(question, keywords, reindex=True, context_dir="searchResults",
     return response
 
 
-async def search_and_answer(question=None, num_keywords=3, max_doc=3, num_results=8):
+def my_web_search(question=None, num_keywords=3, max_doc=3, num_results=8):
     if question is None:
         question = input("Enter your question: ")
         if len(question) == 0:
@@ -255,4 +261,4 @@ async def search_and_answer(question=None, num_keywords=3, max_doc=3, num_result
 
 
 if __name__ == "__main__":
-    asyncio.run(search_and_answer(num_keywords=3, max_doc_len=3))
+    my_web_search(num_keywords=3, max_doc_len=3)
