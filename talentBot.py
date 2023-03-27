@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask import send_from_directory
 from my_module import *
 from settings import *
-
+from search import *
 
 # Set up OpenAI API key
 openai.api_key = openai_api_key
@@ -22,9 +22,11 @@ def separate_channel(message_text):
     keywords["bash"] = ["bash:", "b:", "bash ", "Bash:"]
     keywords["image"] = ["图片:", "图片：", "图片 ", "img:",  "Img:", "生成图片：", "生成图片:"]
     keywords["gpt"] = ["生成程序：","程序生成：","generator:", "Generator:", "ai:", "AI:", "gpt:", "Gpt:", "Ai:"]
+    keywords["google"] = ["google:", "Google:", "谷歌:", "谷歌：", "搜索:", "搜索：", "search:", "Search:", "Search：", "search：",
+                          "gl", "gg"]
 
     results = {}
-    for channel in ["python", "bash", "image", "gpt"]:
+    for channel in ["python", "bash", "image", "gpt", "google"]:
         results[channel] = None
         for keyword in keywords[channel]:
             if message_text.startswith(keyword):
@@ -76,7 +78,15 @@ def process_synology_chat_message(event):
             img_filename = generate_img_from_openai(text_description, user_id=user_id)
             print(f"img_filename = {img_filename}")
             send_back_message(user_id, text_description, image_filename=img_filename)
-            
+
+        elif code_results["google"]:
+            print(f"Google search request found: {code_results['google']}")
+            answer = my_web_search(question=code_results["google"], num_keywords=3, max_doc=3, num_results=8)
+            print(f"answer = {answer}")
+            send_back_message(user_id, answer)
+            conversation_history[user_id]["messages"].append(
+                {"role": "Google", "content": answer}
+            )
         else:
             print("Collect messages to send to gpt")
             # generate an instant pre-response to signal the bot is at work
