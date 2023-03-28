@@ -274,7 +274,7 @@ def my_ddg(q, n=5):
 
 
 # bing
-bing_key = "2fe1117a583b4fa3865a09df889bf857"
+
 def my_bing(q, n=5, key=bing_key):
     # assert key
     search_url = "https://api.bing.microsoft.com/v7.0/search"
