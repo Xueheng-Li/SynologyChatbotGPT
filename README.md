@@ -6,6 +6,8 @@
 
 它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
 
+最新的 v0.3 版本更具备调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力。
+
 ## 更新说明
 
 对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
@@ -21,6 +23,8 @@
     3. 以下关键词引导机器人在本地运行 Python 代码：`python:` 或 `py:` ；后面跟着的文本会被视为 Python 代码，并被机器人在本地执行。
 
     4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
+    
+    5. v0.3 具备使用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
 
 
 2. `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
