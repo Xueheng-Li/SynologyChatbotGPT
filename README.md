@@ -10,11 +10,15 @@
 
 ## 更新说明
 
-对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
+要在 v0.3 的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
 
-最新的 v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
+- 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
+
+- 在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
+
+对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
     
-1. `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
+- `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
 
     1. 默认会调用 ChatGPT-3.5 进行答复 。
 
@@ -24,12 +28,12 @@
 
     4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
     
-    5. v0.3 具备使用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
+    5. v0.3 具备使用搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
 
 
-2. `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
+- `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
 
-3. 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
+- 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
     
 
 使用说明
@@ -37,21 +41,21 @@
 
 1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
 
-    - 用有管理员权限的账户登录 Synology Chat。
+    1. 用有管理员权限的账户登录 Synology Chat。
 
-    - 点击右上角你的头像，在菜单中选择「整合」(Integration)，点击「机器人」(Bots)。
+    2. 点击右上角你的头像，在菜单中选择「整合」(Integration)，点击「机器人」(Bots)。
 
-    - 点击「+ 创建」按钮，然后选择「创建新机器人」。
+    3. 点击「+ 创建」按钮，然后选择「创建新机器人」。
 
-    - 为你的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
+    4. 为你的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
 
-    - 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
+    5. 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
 
-    - 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
+    6. 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
     
-    - 最后点击「确认」（OK）保存。
+    7. 最后点击「确认」（OK）保存。
 
-2. 在`https://platform.openai.com/account/api-keys`申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
+2. 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
 
     ```python
@@ -77,6 +81,13 @@
     # Set maximum conversation exchanges or idle time gap to start a new conversatoin
     max_conversation_length = 20 
     max_time_gap = 15 # minutes
+    
+    # get your free bing search api key here: https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
+    bing_key = "your_key_for_Bing_search" 
+    
+    # get your free serpapi_key for using Google here: https://serpapi.com/
+    serpapi_key = "your_serpapi_key_for_google_search"
+    
     ```
     
 3.  安装所需的库：
