@@ -291,7 +291,7 @@ def my_bing(q, n=5, key=bing_key):
     return results_list
 
 
-def my_search(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi_endpoint):
+def my_google(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi_endpoint):
     params = {
         "api_key": key,
         "engine": engine,
@@ -299,6 +299,29 @@ def my_search(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi
         "num": n,
         "rn": n,
         "hl":zh-cn,
+    }
+    response = requests.get(serpapi_endpoint, params=params)
+    response_json = response.json()
+    search_results = response_json.get("organic_results", [])
+    results_list = []
+    for r in search_results:
+        # print(r)
+        try:
+            results_list.append(f"{r['title']} ({r['link']}). {r['snippet']}")
+        except Exception as e:
+            print(e)
+            continue
+    print(f"{engine}: {len(results_list)}")
+    return results_list
+
+
+def my_baidu(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi_endpoint):
+    params = {
+        "api_key": key,
+        "engine": engine,
+        "q": q,
+        "num": n,
+        "rn": n,
         "ct":2,
     }
     response = requests.get(serpapi_endpoint, params=params)
@@ -308,23 +331,12 @@ def my_search(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi
     for r in search_results:
         # print(r)
         try:
-            if engine == "baidu":
-                results_list.append(f"{r['title']} ({r['link']}). {r['snippet']}. 获取时间（Parsed time）: {r['date']}")
-            else:
-                results_list.append(f"{r['title']} ({r['link']}). {r['snippet']}")
+            results_list.append(f"{r['title']} ({r['link']}). {r['snippet']}. 获取时间（Parsed time）: {r['date']}")
         except Exception as e:
             print(e)
             continue
     print(f"{engine}: {len(results_list)}")
     return results_list
-
-
-def my_google(q, n=5):
-    return my_search(q=q, engine="google", n=n)
-
-
-def my_baidu(q, n=5):
-    return my_search(q=q, engine="baidu", n=n)
 
 
 def replace_today(prompt):
