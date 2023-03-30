@@ -297,7 +297,9 @@ def my_search(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi
         "engine": engine,
         "q": q,
         "num": n,
-        "rn": n
+        "rn": n,
+        "hl":zh-cn,
+        "ct":2,
     }
     response = requests.get(serpapi_endpoint, params=params)
     response_json = response.json()
