@@ -59,25 +59,22 @@ def process_synology_chat_message(event, refresh_keywords=None,
         message = event.get('text')
         username = event.get('username')
 
+
+
         # Maintain conversation history
         if user_id not in conversation_history:
             conversation_history[user_id] = {"username": username,
                                              "messages": [{"role": "system", "content": chatbot_character}],
                                              "last_timestamp": int(time.time())}
-        conversation_history[user_id]["messages"].append({"role": "user", "content": message})
-        # Truncate conversation history if it exceeds the maximum length
-        if len(conversation_history[user_id]["messages"]) > max_conversation_length:
-            conversation_history[user_id]["messages"] = conversation_history[user_id]["messages"][
-                                                            -max_conversation_length:]
-
 
         # Check for refresh_prompt input to start a new conversation
         if refresh_keywords is None:
             refresh_keywords = ["new", "refresh", "00", "restart", "刷新", "新话题", "退下", "结束", "over"]
-        if len(message) > 0 and message.strip().lower() in refresh_keywords:
+        if message.strip().lower() in refresh_keywords:
             send_back_message(user_id, "好的，开启一下新话题。")
             conversation_history[user_id]["messages"] = conversation_history[user_id]["messages"][0:1]
             index = GPTSimpleVectorIndex([])
+            conversation_history[user_id]["last_timestamp"] = int(time.time())
             return "----------------------------"
 
         # Check if the conversation has been idle for 30 minutes (1800 seconds)
@@ -85,8 +82,15 @@ def process_synology_chat_message(event, refresh_keywords=None,
             conversation_history[user_id]["messages"] = conversation_history[user_id]["messages"][0:1]
             index = GPTSimpleVectorIndex([])
 
-        # update timestamp
-        conversation_history[user_id]["last_timestamp"] = int(time.time())
+
+        # Truncate conversation history if it exceeds the maximum length
+        if len(conversation_history[user_id]["messages"]) > max_conversation_length:
+            conversation_history[user_id]["messages"] = conversation_history[user_id]["messages"][
+                                                            -max_conversation_length:]
+
+
+        conversation_history[user_id]["messages"].append({"role": "user", "content": message})
+
 
         # check and execute python code
         code_results = separate_channel(message)
@@ -168,6 +172,8 @@ def process_synology_chat_message(event, refresh_keywords=None,
             else:
                 send_back_message(user_id, response_text)
 
+        # update timestamp
+        conversation_history[user_id]["last_timestamp"] = int(time.time())
         return "Message processed", 200
 
 
