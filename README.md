@@ -14,7 +14,7 @@
 
 1. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。
 
-2. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api: https://www.deepl.com/docs-api 。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并把设置`tranlsate_to_chinese=True`。
+2. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api: https://www.deepl.com/docs-api 。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并设置`tranlsate_to_chinese=True`。
 
 
 要在 v0.3 及以上版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
