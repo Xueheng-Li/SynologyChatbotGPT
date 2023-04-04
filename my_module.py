@@ -597,11 +597,24 @@ def is_chinese(text):
 
 
 # prepare deepL translator
-translator = deepl.Translator(dl_key)
+if dl_key is not None:
+    translator = deepl.Translator(dl_key)
+
+
 def translate_to_CN(text):
-    return translator.translate_text(text, target_lang="ZH").text
+    if dl_key is not None:
+        return translator.translate_text(text, target_lang="ZH").text
+    else:
+        return text
+
+
+
 def translate_to_EN(text):
-    return translator.translate_text(text, target_lang="EN-US").text
+    if dl_key is not None:
+        return translator.translate_text(text, target_lang="EN-US").text
+    else:
+        return text
+
 
 def detect_and_translate(text):
     if is_chinese(text) is False:
