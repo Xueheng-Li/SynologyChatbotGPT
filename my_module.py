@@ -1,4 +1,3 @@
-# from bs4 import BeautifulSoup
 import openai
 import io
 import sys
@@ -10,6 +9,7 @@ import tempfile
 import os
 import ast
 import astor
+import deepl
 
 import logging
 from duckduckgo_search import ddg
@@ -31,7 +31,9 @@ from llama_index import (
     download_loader
 )
 
+from langdetect import detect
 from settings import *
+
 
 
 # Capture and Execute Python Code in GPT-3 Response
@@ -135,6 +137,8 @@ def download_image(url, save_path="static/img.png"):
 # Sending Messages to Synology Chat
 def send_back_message(user_id, response_text, image_filename=None, image_url=None,
                       your_server_ip=your_server_ip, port=PORT, INCOMING_WEBHOOK_URL=INCOMING_WEBHOOK_URL):
+
+
     message_payload = {
         "user_ids": [int(user_id)],
         "text": str(response_text)
@@ -177,6 +181,7 @@ def modify_response_to_include_code_output(response_text):
         return response_text
 
 
+
 # A function generating an image using OpenAI's API based on the given text description and size, and returns the filename of the downloaded image.
 def generate_img_from_openai(text_description, size=image_size, user_id=None):
     if size in ["small", "medium", "large"]:
@@ -215,38 +220,12 @@ def generate_img_from_openai(text_description, size=image_size, user_id=None):
         return None
 
 
-def generate_gpt_response(chat_history, user_id=None, index=None):
+def generate_gpt_response(chat_history, user_id=None, stream=False):
     print(f"messages_to_gpt: {chat_history}")
     message = chat_history[-1]["content"]
 
-    if index:
-        # Querying the index
-        print("Querying...")
-        if user_id:
-            send_back_message(user_id, "querying...")
-        llm_predictor = LLMPredictor(
-            llm=ChatOpenAI(
-                temperature=0.5,
-                # max_tokens=4096,
-                # max_input_size=4096,
-                model_name="gpt-3.5-turbo"
-            )
-        )
-        qa_prompt = QuestionAnswerPrompt(replace_today(PROMPT_TEMPLATE))
-        # rf_prompt = RefinePrompt(REFINE_TEMPLATE)
-        response = index.query(
-            message,
-            llm_predictor=llm_predictor,
-            similarity_top_k=1,
-            text_qa_template=qa_prompt,
-            # refine_template=rf_prompt,
-            # response_mode="compact"
-            # response_mode="tree_summarize"
-        )
-        response_text = response.response
-        response_role = "assistant"
-    else:
-        # get gpt response
+    # get gpt response
+    if stream is False:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=chat_history,
@@ -254,9 +233,15 @@ def generate_gpt_response(chat_history, user_id=None, index=None):
         )
         response_role = response['choices'][0]['message']['role']
         response_text = response['choices'][0]['message']['content']
-    chat_history.append({"role": response_role, "content": response_text})
-
-    return chat_history
+        chat_history.append({"role": response_role, "content": response_text})
+        return response_text
+    else:
+        response = openai.ChatCompletion.create(
+             model='gpt-3.5-turbo',
+             messages=chat_history,
+             temperature=temperature,
+             stream=True)
+        return response
 
 
 # Set your OpenAI API key
@@ -279,7 +264,10 @@ def my_bing(q, n=5, key=bing_key):
     # assert key
     search_url = "https://api.bing.microsoft.com/v7.0/search"
     headers = {"Ocp-Apim-Subscription-Key": key}
-    params = {'q': q, 'mkt': 'zh-CN', "answerCount": n, "count": n}
+    params = {'q': q,
+              # 'mkt': 'zh-CN',
+              "answerCount": n,
+              "count": n}
     response = requests.get(search_url, headers=headers, params=params)
     response.raise_for_status()
     search_results = response.json()
@@ -298,7 +286,7 @@ def my_google(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi
         "q": q,
         "num": n,
         "rn": n,
-        "hl": "zh-cn",
+        # "hl": "zh-CN",
     }
     response = requests.get(serpapi_endpoint, params=params)
     response_json = response.json()
@@ -315,14 +303,14 @@ def my_google(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi
     return results_list
 
 
-def my_baidu(q, n=5, engine="google", key=serpapi_key, serpapi_endpoint=serpapi_endpoint):
+def my_baidu(q, n=5, engine="baidu", key=serpapi_key, serpapi_endpoint=serpapi_endpoint):
     params = {
         "api_key": key,
         "engine": engine,
         "q": q,
         "num": n,
         "rn": n,
-        "ct":2,
+        # "ct":2,
     }
     response = requests.get(serpapi_endpoint, params=params)
     response_json = response.json()
@@ -594,3 +582,48 @@ def my_web_search(question=None, predict_keywords=False, max_keywords=5, max_web
         return "Error: No answer provided.", index
 
 
+# detect main language of a text
+def is_chinese(text):
+    try:
+        lang = detect(text)
+        if lang.startswith('zh'):
+            print("The text is primarily in Chinese.")
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+
+
+# prepare deepL translator
+translator = deepl.Translator(dl_key)
+def translate_to_CN(text):
+    return translator.translate_text(text, target_lang="ZH").text
+def translate_to_EN(text):
+    return translator.translate_text(text, target_lang="EN-US").text
+
+def detect_and_translate(text):
+    if is_chinese(text) is False:
+        try:
+            return translate_to_CN(text)
+        except Exception as e:
+            print(f"Error: {e}")
+            return text
+    else:
+        return text
+
+
+def send_stream(user_id, text, cut="\n"):
+    sentences = text.split(cut)
+    for s in sentences:
+        if len(s) > 0:
+            send_back_message(user_id, s)
+
+
+
+def send(user_id, text, stream=False, cut="\n"):
+    if stream:
+        send_stream(user_id, text, cut=cut)
+    else:
+        send_back_message(user_id, text)
