@@ -10,11 +10,18 @@
 
 ## 更新说明
 
-要在 v0.3 版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
+### v0.3.5
 
-- 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
+1. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。
 
-- 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
+2. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api（https://www.deepl.com/docs-api）。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并把设置`tranlsate_to_chinese=True`。
+
+
+要在 v0.3 及以上版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
+
+1. 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
+
+2. 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
 
 对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
     
@@ -87,6 +94,14 @@
     
     # get your free serpapi_key for using Google here: https://serpapi.com/
     serpapi_key = "your_serpapi_key_for_google_search"
+    
+    
+    # 若要使用翻译功能，此处改为 True，并且需要申请一个DeepL的 api key：https://www.deepl.com/docs-api
+    tranlsate_to_chinese = False # True or False; 
+                             # if True, the bot will send chinese translation for any non-chinese gpt response
+                             # 如果设置为 True，必须提供下面的 dl_key，否则会报错
+    dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
+                  # then change this varaible to something like: dl_key = "xxx-xxx-xxx-xxx-xxxx:fx"
     
     ```
     
