@@ -16,6 +16,7 @@ click==8.1.3
 contourpy==1.0.7
 cycler==0.11.0
 dataclasses-json==0.5.7
+deepl==1.14.0
 duckduckgo-search==2.8.5
 entrypoints==0.4
 fastapi==0.95.0
@@ -42,6 +43,7 @@ Jinja2==3.1.2
 jsonschema==4.17.3
 kiwisolver==1.4.4
 langchain==0.0.123
+langdetect==1.0.9
 linkify-it-py==2.0.0
 llama-index==0.4.39
 markdown-it-py==2.2.0
