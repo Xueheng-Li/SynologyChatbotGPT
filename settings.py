@@ -29,6 +29,20 @@ max_time_gap = 15 # minutes
 temperature = 0.5
 
 
+# Translate non-chinese text to chinese
+tranlsate_to_chinese = False # True or False; 
+                             # if True, the bot will send chinese translation for any non-chinese gpt response; default is False
+                             # 如果设置为 True，必须提供下面的 dl_key，否则会报错
+dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
+              # apply one here: https://www.deepl.com/docs-api; 
+              # then change this varaible to something like: dl_key = "xxx-xxx-xxx-xxx-xxxx:fx"
+    
+
+# Using streaming chatgpt response, which will break gpt response into small paragraphs (using `\n` as separator) and send them one by one
+stream = True # True or False
+
+
+
 # Image size when using ai to generate image
 image_size = "medium" # "small", "medium" or "large"
 
