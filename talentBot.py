@@ -1,8 +1,8 @@
+#coding:utf-8
 from flask import Flask, request
 from flask import send_from_directory
 from my_module import *
 from settings import *
-# from search import *
 
 
 # Set up OpenAI API key
@@ -43,7 +43,9 @@ def process_synology_chat_message(event, refresh_keywords=None,
                                   max_conversation_length=max_conversation_length,
                                   max_time_gap=max_time_gap,
                                   index=index, max_web_page=0,
-                                  num_search_results=5):
+                                  num_search_results=5,
+                                  tranlsate=tranlsate_to_chinese,
+                                  stream=stream):
 
     print(f"event: {event}")
 
@@ -136,9 +138,19 @@ def process_synology_chat_message(event, refresh_keywords=None,
                                           user_id=user_id,
                                           chat_history=conversation_history[user_id]["messages"],
                                           engines=["ddg", "bing", "google"])
-            # answer = str(answer).strip()
-            print(f"answer = {answer}")
-            send_back_message(user_id, response_text=answer)
+            print(f"original answer = {answer}")
+
+            # answer = detect_and_translate(answer)
+            send(user_id, answer, stream=stream)
+            if is_chinese(answer) is False and tranlsate:
+                print("Translating...")
+                try:
+                    answer_cn = translate_to_CN(answer)
+                    print(f"Translated gpt_response = {answer_cn}")
+                    send(user_id, f"翻译:\n{answer_cn}", stream=stream)
+                except Exception as e:
+                    print(f"Error in translation: {e}")
+
             conversation_history[user_id]["messages"].append({
                 "role": "assistant",
                 "content": answer
@@ -146,31 +158,62 @@ def process_synology_chat_message(event, refresh_keywords=None,
             print(conversation_history[user_id]["messages"])
         else:
             send_back_message(user_id, "...")
-            conversation_history[user_id]["messages"] = generate_gpt_response(
+            gpt_response = generate_gpt_response(
                 chat_history=conversation_history[user_id]["messages"],
-                index=None)
-            response_text = conversation_history[user_id]["messages"][-1]["content"]
-            print(f"Original response: {response_text}\n")
-
-            if re.findall(r"```python(.*?)```", response_text, re.DOTALL):
-                response_text = modify_response_to_include_code_output(response_text)
-                print(f"With code output: {response_text}")
-
-            unsplash_text_links = re.findall(r"!\[(.*?)\]\((.*?)\)", response_text)
-            # unsplash_titles = re.findall(r"!\[(.*?)\]https://source.unsplash.com/", response_text)
-            print(f"unsplash_links = {unsplash_text_links}")
-            if unsplash_text_links:
-                # response_text = re.sub(r"!\[.*?\]\(https://source.unsplash.com/\S+\)", "", response_text)
-                send_back_message(user_id, response_text)
-                for text, link in unsplash_text_links:
-                    send_back_message(user_id, f"直接下载:{text}", image_url=link)
-                    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    filename = f"{current_time}.png"
-                    # send_back_message(user_id, "下载图片...")
-                    download_image(link, "static/" + filename)
-                    send_back_message(user_id, text, image_filename=filename)
+                stream=stream)
+            print("Got gpt response")
+            if stream:
+                text = []
+                whole_text = []
+                for r in gpt_response:
+                    # print(r.choices[0]["delta"])
+                    if "content" in r.choices[0]["delta"]:
+                        word = r.choices[0]["delta"]["content"]
+                        text.append(word)
+                        whole_text.append(word)
+                        # Check if the current output ends with \n
+                        if re.search(r'[\n]', word[-1]):
+                            sentence = ''.join(text).strip().replace("\n", "")
+                            send_stream(user_id, sentence)
+                            text = []
+                text = ''.join(text)
+                if len(text) > 0:
+                    send(user_id, text, stream=stream)
+                response_text = ''.join(whole_text)
             else:
-                send_back_message(user_id, response_text)
+                response_text = gpt_response
+                print(f"Original response: {response_text}\n")
+                if re.findall(r"```python(.*?)```", response_text, re.DOTALL):
+                    response_text = modify_response_to_include_code_output(response_text)
+                    print(f"With code output: {response_text}")
+                send(user_id, response_text, stream=stream)
+
+
+            conversation_history[user_id]["messages"].append({"role": "assistant", "content": response_text})
+
+            # unsplash_text_links = re.findall(r"!\[(.*?)\]\((.*?)\)", response_text)
+            # print(f"unsplash_links = {unsplash_text_links}")
+
+
+            # if unsplash_text_links:
+            #     # response_text = re.sub(r"!\[.*?\]\(https://source.unsplash.com/\S+\)", "", response_text)
+            #     send_back_message(user_id, response_text)
+            #     for text, link in unsplash_text_links:
+            #         send_back_message(user_id, f"直接下载:{text}", image_url=link)
+            #         current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+            #         filename = f"{current_time}.png"
+            #         # send_back_message(user_id, "下载图片...")
+            #         download_image(link, "static/" + filename)
+            #         send_back_message(user_id, text, image_filename=filename)
+
+            if is_chinese(response_text) is False and tranlsate:
+                print("Translating...")
+                try:
+                    response_text = translate_to_CN(response_text)
+                    print(f"Translated gpt_response = {response_text}")
+                    send(user_id, f"翻译:\n\n{response_text}", stream=stream)
+                except Exception as e:
+                    print(f"Error in translation: {e}")
 
         # update timestamp
         conversation_history[user_id]["last_timestamp"] = int(time.time())
@@ -198,9 +241,11 @@ def webhook():
     event = {key: form_data.get(key) for key in form_data}
     output = process_synology_chat_message(event,
                                            max_web_page=0,
-                                           num_search_results=15)
+                                           num_search_results=10,
+                                           stream=stream,
+                                           tranlsate=tranlsate_to_chinese)
     return output
 
 
 if __name__ == "__main__":
-    app.run(host=your_server_ip, port=PORT)
+    app.run(host="0.0.0.0", port=PORT)
