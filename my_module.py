@@ -50,7 +50,7 @@ def capture_python_output(code, venv_path=venv_path):
         while True:
             try:
                 # Activate virtual environment in the subprocess and execute the temporary file
-                command = f"source {venv_path}/bin/activate; python3 {temp_file_path}"
+                command = f"source {venv_path}/bin/activate; python {temp_file_path}"
                 execution_output = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.STDOUT,
                                                            executable="/bin/bash")
                 print(execution_output, file=output)
