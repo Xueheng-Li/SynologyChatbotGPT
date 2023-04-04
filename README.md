@@ -6,15 +6,15 @@
 
 它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
 
-最新的 v0.3 版本加入调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息以回答问题的能力。
+最新的 v0.3 及以上版本加入调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息以回答问题的能力。
 
 ## 更新说明
 
-要在 v0.3 的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
+要在 v0.3 版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
 
 - 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
 
-- 在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
+- 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
 
 对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
     
@@ -28,7 +28,7 @@
 
     4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
     
-    5. v0.3 具备使用搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
+    5. v0.3 及以上版本具备使用搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
 
 
 - `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
