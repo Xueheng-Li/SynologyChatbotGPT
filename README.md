@@ -4,20 +4,24 @@
 
 一个 Python 项目，使用 OpenAI API 和群晖 Synology Chat 套件搭建了一个聊天机器人，同时整合了 ChatGPT-3.5 文本语言模型和 Edits 图片生成模型，并具备即时在本地运行 Python 代码和 Bash 命令的能力 —— *it is more than ChatGPT*.
 
-它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以向它发送 Python 代码、Bash 命令、图片描述等信息，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。它还可以根据用户的图片描述生成图片，并将图片发送给用户。
+它首先是一个 ChatGPT-3.5 的套壳；但同时，用户还可以：
 
-最新的 v0.3 及以上版本加入调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息以回答问题的能力。
+1. 向它发送 Python 代码、Bash 命令，它会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令；
+
+2. 向它发送图片描述等信息，它可以根据用户的图片描述生成图片；
+
+3. 可调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索实时信息回答问题。
 
 ## 更新说明
 
-### v0.3.5
+### v1.0.0
 
 1. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。
 
 2. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api: https://www.deepl.com/docs-api 。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并设置`tranlsate_to_chinese=True`。
 
 
-要在 v0.3 及以上版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
+要在 v0.3.0 及以上版本的 talentBot 中使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
 
 1. 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
 
