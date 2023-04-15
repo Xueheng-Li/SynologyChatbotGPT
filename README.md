@@ -87,7 +87,7 @@
     PORT = 5008
 
     # System prompt sets up the character of the chatbot; change it if you want
-    chatbot_character = '''You are a AI assistant'''
+    system_prompt = '''You are a AI assistant'''
 
     # Set maximum conversation exchanges or idle time gap to start a new conversatoin
     max_conversation_length = 20 
@@ -104,7 +104,7 @@
     
     
     # 若要使用翻译功能，此处改为 True，并且需要申请一个DeepL的 api key：https://www.deepl.com/docs-api
-    tranlsate_to_chinese = False # True or False; 
+    translate_to_chinese = False # True or False; 
                              # if True, the bot will send chinese translation for any non-chinese gpt response
                              # 如果设置为 True，必须提供下面的 dl_key，否则会报错
     dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
