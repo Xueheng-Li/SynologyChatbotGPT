@@ -14,7 +14,7 @@
 
 ## 更新说明
 
-### 对于v1.0.0及以上版本
+### 请使用最新版本v1.1.0。对于v1.0.0及以上版本：
 
 1. 所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
