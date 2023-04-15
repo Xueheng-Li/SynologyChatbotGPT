@@ -15,14 +15,14 @@ app = Flask(__name__)
 #     CELERY_BROKER_URL=CELERY_BROKER_URL,
 # )
 
-# # In-memory storage of chatbot data
-# bots = {}
+# In-memory storage of chatbot data
+bots = {}
+
 
 @app.route('/image/<filename>')
 def serve_image(filename):
     return send_from_directory('static', filename)
 
-bots = {}
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
