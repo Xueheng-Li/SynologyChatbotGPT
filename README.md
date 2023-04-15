@@ -93,6 +93,9 @@
     max_conversation_length = 20 
     max_time_gap = 15 # minutes
     
+    # 默认启用 stream 方法；如果要让 gpt 生成代码，需要关闭 stream 功能
+    stream=True
+    
     # get your free bing search api key here: https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
     bing_key = "your_key_for_Bing_search" 
     
