@@ -155,4 +155,7 @@
     
 *   本示例代码中未实现对输入和输出的过滤和检查。在实际应用中，请确保对输入进行验证和过滤，以防止潜在的安全问题。
     
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Xueheng-Li/SynologyChatbotGPT&type=Date)](https://star-history.com/#Xueheng-Li/SynologyChatbotGPT&Date)
 
