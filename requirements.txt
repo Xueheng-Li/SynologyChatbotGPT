@@ -66,6 +66,7 @@ pydub==0.25.1
 pyparsing==3.0.9
 pyrsistent==0.19.3
 python-dateutil==2.8.2
+python-dotenv==1.0.0
 python-multipart==0.0.6
 pytz==2022.7.1
 PyYAML==6.0
@@ -82,8 +83,10 @@ SQLAlchemy==1.4.47
 starlette==0.26.1
 tenacity==8.2.2
 tiktoken==0.3.2
+tls-client==0.1.9
 toolz==0.12.0
 tqdm==4.65.0
+turbogpt==1.0.2
 typing-inspect==0.8.0
 typing_extensions==4.5.0
 uc-micro-py==1.0.1
