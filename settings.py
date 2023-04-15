@@ -30,7 +30,7 @@ temperature = 0.5
 
 
 # Translate non-chinese text to chinese
-tranlsate_to_chinese = False # True or False; 
+translate_to_chinese = False # True or False; 
                              # if True, the bot will send chinese translation for any non-chinese gpt response; default is False
                              # 如果设置为 True，必须提供下面的 dl_key，否则会报错
 dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
@@ -52,18 +52,13 @@ image_size = "medium" # "small", "medium" or "large"
 venv_path = "./venv"
 
 
-PROMPT_TEMPLATE = """
-Context information is below. Please refer to the context by using [number] notation when providing a response.
+PROMPT_TEMPLATE = """Web search context information is provided below.
 ---------------------
 {context_str}
 ---------------------
 Current date: {current_date}.
-Using the provided context information, write a comprehensive reply to the given query.
-If the provided information refers to multiple subjects with the same name, write separate answers for each subject.
-
-首先，不考虑提供的背景信息，请回答以下问题（用中文）: {query_str}
-
-现在，考虑到提供的背景信息，这是否改变了原始答案？如果是，请用中文提供更新后的答案。如果没有，请用中文重复原始答案（If not, please repeat the original answer in 中文 (Chinese).）。无论如何，你都要提供一个回答。
+Using the provided web search context information, write a comprehensive reply to the given query.
+Now, use the provided information to answer the following question: {query_str}
 """
 
 bing_key = "your_key_for_Bing_search" # get your free bing search api key here: https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
