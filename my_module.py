@@ -33,7 +33,7 @@ from llama_index import (
 
 from langdetect import detect
 from settings import *
-from webgpt import *
+# from webgpt import *
 
 from urllib.parse import quote
 
@@ -760,7 +760,7 @@ class ChatBot:
                 print(f"Error: {e}")
                 continue
 
-        prompt_input = PROMPT_TEMPLATE.replace("{context_str}", results_text).replace("{query_str}", keywords)
+        prompt_input = replace_today(PROMPT_TEMPLATE).replace("{context_str}", results_text).replace("{query_str}", keywords)
 
         if len(prompt_input) <= 4000:
 
@@ -850,5 +850,8 @@ class ChatBot:
                 send(self.user_id, f"翻译:\n{answer_cn}", stream=self.stream)
             except Exception as e:
                 print(f"Error in translation: {e}")
+
+
+
 
 
