@@ -14,37 +14,37 @@
 
 ## 更新说明
 
-### v1.0.0
+### 对于v1.0.0及以上版本
 
-1. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。
+1. 所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
-2. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api: https://www.deepl.com/docs-api 。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并设置`tranlsate_to_chinese=True`。
+2. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。
 
+3. 加入把非中文回复翻译成中文的功能，该功能会用到 DeepL 的 api: https://www.deepl.com/docs-api 。若要启用此功能，则需要在 DeepL官网上申请一个免费 api，替换`settings.py`中的`dl_key`，并设置`tranlsate_to_chinese=True`。
 
 要使用 Bing 和 Google 搜索最新网络信息以回答问题，你需要申请以下两个免费 api key：
 
-3. 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
+4. 按照这个官方网页的方法申请 Bing（必应搜索）的 API key: <https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview>，申请到的 key 填到`settings.py`最后的`your_key_for_Bing_search`处。
 
-4. 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
+5. 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
 
-对于 v0.2 及以上版本，所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。v0.2 及以上版本包含两个机器人`basicBot`和`talentBot`：
+6. `basicBot`和`talentBot`的区别及使用说明：
     
-- `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
+（1） `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
 
-    1. 默认会调用 ChatGPT-3.5 进行答复 。
-
-    2. 以下关键词将引导机器人生成图片：`图片：`，`生成图片：`，或 `img:`；后面跟着的文本会被视为图片描述传给图片生成模型 Edits，生成图片。
-
-    3. 以下关键词引导机器人在本地运行 Python 代码：`python:` 或 `py:` ；后面跟着的文本会被视为 Python 代码，并被机器人在本地执行。
-
-    4. 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
+    - 默认会调用 ChatGPT-3.5 进行答复 。
     
-    5. v0.3 及以上版本具备使用搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息。
+    - 以下关键词将引导机器人生成图片：`图片：`，`生成图片：`，或 `img:`；后面跟着的文本会被视为图片描述传给图片生成模型 Edits，生成图片。
 
+    - 以下关键词引导机器人在本地运行 Python 代码：`python:` 或 `py:` ；后面跟着的文本会被视为 Python 代码，并被机器人在本地执行。
 
-- `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
+    - 以下关键词引导机器人在本地运行 Bash 命令：`bash:` 或 `b:` ；后面跟着的文本会被视为 Bash 命令，并被机器人在本地执行。
+    
+    - 具备使用搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索最新网络信息回答问题的能力，用关键词`bb`或`gg`开头即可实时搜索网络信息（`bb`或`gg`是一样的，默认都是会同时使用DuckDuckGo, Bing和Google逐一搜索一遍）。
 
-- 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
+（2） `basicBot`只具备上述`talentBot`的第一项功能，任何和`basicBot.py`的对话都传给 ChatGPT-3.5 生成答复。
+
+（3） 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
     
 
 使用说明
