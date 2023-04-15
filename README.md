@@ -87,7 +87,8 @@
     PORT = 5008
 
     # System prompt sets up the character of the chatbot; change it if you want
-    system_prompt = '''You are a AI assistant'''
+    system_prompt = '''你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。'''
+
 
     # Set maximum conversation exchanges or idle time gap to start a new conversatoin
     max_conversation_length = 20 
