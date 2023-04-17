@@ -82,7 +82,7 @@ def generate_gpt_response(user_id, username, message, max_conversation_length=ma
 
     conversation_history[user_id]["messages"].append({"role": "user", "content": message})
 
-    system_prompt = chatbot_character
+    system_prompt = system_prompt
 
     messages = [{"role": "system", "content": system_prompt}]
 
