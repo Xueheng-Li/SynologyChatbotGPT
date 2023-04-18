@@ -47,8 +47,6 @@ xueheng/synogpt:latest
 
 ## 更新说明
 
-### 请使用最新版本v1.1.0。对于v1.0.0及以上版本：
-
 1. 所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
 2. 默认启用 stream 方法来传回 ChatGPT 的回复，即当 GPT 的回复有好几个小段落时，不需要等待所有段落都生成结束以后才把整个回复发送回群晖 Chat 的聊天窗口，而是会在每一个新的小段生成结束时就即刻发送回群晖 Chat。这样可以大大减少等待回复的时间。注意：如果要让 gpt 生成代码，并实时执行，记得在settings.py中关闭stream回传方法，即设置为`stream=False`。
@@ -61,7 +59,7 @@ xueheng/synogpt:latest
 
 5. 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
 
-6. `basicBot`和`talentBot`的区别及使用说明（Docker 版本为`talentBot`）：
+6. `basicBot`和`talentBot`的区别及使用说明（Docker 版本使用`talentBot`）：
     
 （1） `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
 
@@ -81,7 +79,6 @@ xueheng/synogpt:latest
     
 
 ## 使用说明
-----
 
 1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
 
@@ -99,7 +96,7 @@ xueheng/synogpt:latest
     
     7. 最后点击「确认」（OK）保存。
 
-以下步骤为不使用 Docker 进行部署的方法：
+使用Docker的用户请参考前述Docker的部署方法，以下步骤为不使用 Docker 进行部署：
 
 2. 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
