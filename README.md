@@ -96,7 +96,7 @@ xueheng/synogpt:latest
     
     7. 最后点击「确认」（OK）保存。
 
-使用Docker的用户请参考前述Docker的部署方法，以下步骤为不使用 Docker 进行部署：
+### 使用Docker的用户请参考前述Docker的部署方法，以下为不使用 Docker 进行部署的方法：
 
 2. 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
