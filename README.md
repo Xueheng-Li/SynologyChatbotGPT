@@ -47,7 +47,7 @@
 （3） 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
     
 
-使用说明
+## 使用说明
 ----
 
 1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
@@ -138,7 +138,42 @@
 
 5. 在 Synology Chat 中与机器人进行对话。如果运行的是`basicBot.py`，那么任何你的输入，机器人都将使用OpenAI的 gpt-3.5-turbo 模型生成回复。关于`talentBot.py`的使用请参考前述更新说明。
 
+## Docker 部署
+### 示例
 
+```
+docker run -d --name synobot \
+-p 5008:5008 \
+-e OPENAI_API_KEY="YOUR_OPENAI_API_KEY" \
+-e INCOMING_WEBHOOK_URL="YOUR_INCOMING_WEBHOOK_URL" \
+-e WEBHOOK_TOKEN="YOUR_WEBHOOK_TOKEN" \
+xueheng/synogpt:latest
+```
+
+### 所有Docker参数说明
+
+| 变量名 | 描述                               | 默认值                                                                                   | 必填 |
+| --- |----------------------------------|---------------------------------------------------------------------------------------| --- |
+| `OPENAI_API_KEY` | 你的 OpenAI API 密钥                 | 无                                                                                     | 是 |
+| `INCOMING_WEBHOOK_URL` | Synology Chat 机器人的传入 Webhook URL | 无                                                                                     | 是 |
+| `WEBHOOK_TOKEN` | Synology Chat 机器人的传出 Webhook 令牌  | 无                                                                                     | 是 |
+| `SERVER_IP` | 运行脚本的服务器 IP 地址                   | 127.0.0.1                                                                             | 否 |                                                                             | 否 |
+| `system_prompt` | 聊天机器人的角色                         | '你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。' | 否 |
+| `max_conversation_length` | 允许的最大对话次数                        | 10                                                                                    | 否 |
+| `max_time_gap` | 启动新对话的最大空闲时间间隔                   | 15                                                                                    | 否 |
+| `temperature` | OpenAI API 的一个参数，控制生成文本的随机性。     | 0.5                                                                                   | 否 |
+| `stream` | 使用stream方法传回 GPT 答复              | True                                                                                  | 否 |
+| `image_size` | 使用 ai 生成图像时的图像大小                 | 'medium'                                                                              | 否 |
+| `translate_to_chinese` | 是否将非中文文本翻译为中文（必须和下面的Deepl_api_key配合使用）  | False                                                                                 | 否 |
+| `Deepl_api_key` | DeepL API 密钥                     | None                                                                                  | 否 |
+| `bing_key` | Bing API 密钥                      | None                                                                | 否 |
+| `serpapi_key` | SerpApi 密钥，以启用 google 搜索         | None                                                                | 否 |
+
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Xueheng-Li/SynologyChatbotGPT&type=Date)](https://star-history.com/#Xueheng-Li/SynologyChatbotGPT&Date)
 
 注意事项
 ----
@@ -155,7 +190,3 @@
     
 *   本示例代码中未实现对输入和输出的过滤和检查。在实际应用中，请确保对输入进行验证和过滤，以防止潜在的安全问题。
     
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Xueheng-Li/SynologyChatbotGPT&type=Date)](https://star-history.com/#Xueheng-Li/SynologyChatbotGPT&Date)
-
