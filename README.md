@@ -12,6 +12,39 @@
 
 3. 可调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索实时信息回答问题。
 
+## Docker 部署
+### 示例
+
+```
+docker run -d --name synobot \
+-p 5008:5008 \
+-e OPENAI_API_KEY="YOUR_OPENAI_API_KEY" \
+-e INCOMING_WEBHOOK_URL="YOUR_INCOMING_WEBHOOK_URL" \
+-e WEBHOOK_TOKEN="YOUR_WEBHOOK_TOKEN" \
+xueheng/synogpt:latest
+```
+
+### 所有Docker参数说明
+
+| 变量名 | 描述                               | 默认值                                                                                   | 必填 |
+| --- |----------------------------------|---------------------------------------------------------------------------------------| --- |
+| `OPENAI_API_KEY` | 你的 OpenAI API 密钥                 | 无                                                                                     | 是 |
+| `INCOMING_WEBHOOK_URL` | Synology Chat 机器人的传入 Webhook URL | 无                                                                                     | 是 |
+| `WEBHOOK_TOKEN` | Synology Chat 机器人的传出 Webhook 令牌  | 无                                                                                     | 是 |
+| `SERVER_IP` | 运行脚本的服务器 IP 地址                   | 127.0.0.1                                                                             | 否 |                                                                             | 否 |
+| `system_prompt` | 聊天机器人的角色                         | '你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。' | 否 |
+| `max_conversation_length` | 允许的最大对话次数                        | 10                                                                                    | 否 |
+| `max_time_gap` | 启动新对话的最大空闲时间间隔                   | 15                                                                                    | 否 |
+| `temperature` | OpenAI API 的一个参数，控制生成文本的随机性。     | 0.5                                                                                   | 否 |
+| `stream` | 使用stream方法传回 GPT 答复              | True                                                                                  | 否 |
+| `image_size` | 使用 ai 生成图像时的图像大小                 | 'medium'                                                                              | 否 |
+| `translate_to_chinese` | 是否将非中文文本翻译为中文（必须和下面的Deepl_api_key配合使用）  | False                                                                                 | 否 |
+| `Deepl_api_key` | DeepL API 密钥                     | None                                                                                  | 否 |
+| `bing_key` | Bing API 密钥                      | None                                                                | 否 |
+| `serpapi_key` | SerpApi 密钥，以启用 google 搜索         | None                                                                | 否 |
+
+
+
 ## 更新说明
 
 ### 请使用最新版本v1.1.0。对于v1.0.0及以上版本：
@@ -28,7 +61,7 @@
 
 5. 使用 google 需要在这个网上也注册申请一个key：<https://serpapi.com/>，申请到的 key 填到`settings.py`最后的`your_serpapi_key_for_google_search`处。
 
-6. `basicBot`和`talentBot`的区别及使用说明：
+6. `basicBot`和`talentBot`的区别及使用说明（Docker 版本为`talentBot`）：
     
 （1） `talentBot`同时基于 OpenAI 的 ChatGPT-3.5 文本语言模型和 Edits 的图片生成 AI 模型，并整合了即时在本地运行 Python 代码和 Bash 命令的能力。用户可以向机器人发送 Python 代码、Bash 命令、图片描述等信息，机器人会根据用户的输入生成回复，并执行其中的 Python 代码和 Bash 命令。机器人还可以根据用户的图片描述生成图片，并将图片发送给用户。具体使用说明：
 
@@ -65,6 +98,8 @@
     6. 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
     
     7. 最后点击「确认」（OK）保存。
+
+以下步骤为不使用 Docker 进行部署的方法：
 
 2. 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
@@ -137,38 +172,6 @@
     
 
 5. 在 Synology Chat 中与机器人进行对话。如果运行的是`basicBot.py`，那么任何你的输入，机器人都将使用OpenAI的 gpt-3.5-turbo 模型生成回复。关于`talentBot.py`的使用请参考前述更新说明。
-
-## Docker 部署
-### 示例
-
-```
-docker run -d --name synobot \
--p 5008:5008 \
--e OPENAI_API_KEY="YOUR_OPENAI_API_KEY" \
--e INCOMING_WEBHOOK_URL="YOUR_INCOMING_WEBHOOK_URL" \
--e WEBHOOK_TOKEN="YOUR_WEBHOOK_TOKEN" \
-xueheng/synogpt:latest
-```
-
-### 所有Docker参数说明
-
-| 变量名 | 描述                               | 默认值                                                                                   | 必填 |
-| --- |----------------------------------|---------------------------------------------------------------------------------------| --- |
-| `OPENAI_API_KEY` | 你的 OpenAI API 密钥                 | 无                                                                                     | 是 |
-| `INCOMING_WEBHOOK_URL` | Synology Chat 机器人的传入 Webhook URL | 无                                                                                     | 是 |
-| `WEBHOOK_TOKEN` | Synology Chat 机器人的传出 Webhook 令牌  | 无                                                                                     | 是 |
-| `SERVER_IP` | 运行脚本的服务器 IP 地址                   | 127.0.0.1                                                                             | 否 |                                                                             | 否 |
-| `system_prompt` | 聊天机器人的角色                         | '你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。' | 否 |
-| `max_conversation_length` | 允许的最大对话次数                        | 10                                                                                    | 否 |
-| `max_time_gap` | 启动新对话的最大空闲时间间隔                   | 15                                                                                    | 否 |
-| `temperature` | OpenAI API 的一个参数，控制生成文本的随机性。     | 0.5                                                                                   | 否 |
-| `stream` | 使用stream方法传回 GPT 答复              | True                                                                                  | 否 |
-| `image_size` | 使用 ai 生成图像时的图像大小                 | 'medium'                                                                              | 否 |
-| `translate_to_chinese` | 是否将非中文文本翻译为中文（必须和下面的Deepl_api_key配合使用）  | False                                                                                 | 否 |
-| `Deepl_api_key` | DeepL API 密钥                     | None                                                                                  | 否 |
-| `bing_key` | Bing API 密钥                      | None                                                                | 否 |
-| `serpapi_key` | SerpApi 密钥，以启用 google 搜索         | None                                                                | 否 |
-
 
 
 ## Star History
