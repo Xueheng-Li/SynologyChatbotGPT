@@ -33,7 +33,7 @@ xueheng/synogpt:latest
 | `WEBHOOK_TOKEN` | Synology Chat 机器人的传出 Webhook 令牌  | 无                                                                                     | 是 |
 | `SERVER_IP` | 运行脚本的服务器 IP 地址                   | 127.0.0.1                                                                             | 否 |                                                                             | 否 |
 | `system_prompt` | 聊天机器人的角色                         | '你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。' | 否 |
-| `max_conversation_length` | 允许的最大对话次数                        | 10                                                                                    | 否 |
+| `max_conversation_length` | 对话历史记录次数长度                        | 10                                                                                    | 否 |
 | `max_time_gap` | 启动新对话的最大空闲时间间隔                   | 15                                                                                    | 否 |
 | `temperature` | OpenAI API 的一个参数，控制生成文本的随机性。     | 0.5                                                                                   | 否 |
 | `stream` | 使用stream方法传回 GPT 答复              | True                                                                                  | 否 |
