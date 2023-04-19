@@ -45,7 +45,7 @@ xueheng/synogpt:latest
 
 
 
-## 更新说明
+## 使用说明
 
 1. 所有需要你修改的参数（`openai_api_key`，`INCOMING_WEBHOOK_URL`，`OUTGOING_WEBHOOK_TOKEN`等）都保存在`settings.py`中，你只需要修改这个文档中的相关参数即可。
 
@@ -78,7 +78,7 @@ xueheng/synogpt:latest
 （3） 目前 basicBot 和 talentBot 共用同一个 settings.py 文件，所以在同一个文件夹中两者只能同时运行其一，但其实只要再另建一个文件夹重新复制配置一遍所有文件，就能同时运行两个或者多个机器人。
     
 
-## 使用说明
+## 配置说明
 
 1.  在 Synology Chat 中请按照以下步骤添加聊天机器人：
 
