@@ -47,19 +47,19 @@
 
 ### 1. 群晖 Chat 客户端按照以下步骤添加聊天机器人：
 
-1. 用有管理员权限的账户登录 Synology Chat。
+（1） 用有管理员权限的账户登录 Synology Chat。
 
-2. 点击右上角你的头像，在菜单中选择「整合」(Integration)，点击「机器人」(Bots)。
+（2） 点击右上角你的头像，在菜单中选择「整合」(Integration)，点击「机器人」(Bots)。
 
-3. 点击「+ 创建」按钮，然后选择「创建新机器人」。
+（3） 点击「+ 创建」按钮，然后选择「创建新机器人」。
 
-4. 为你的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
+（4） 为你的机器人输入名称（例如：ChatGPT机器人）。点击「创建」。
 
-5. 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
+（5） 在创建的机器人详情页面，找到「传出 Webhook」部分，将 Webhook URL 设置为你在代码中设置的 URL（即 `http://your_server_ip:PORT/webhook`， 其中 `your_server_ip` 应该是运行上述代码的机器的 IP 地址，`PORT`为你接下来在`settings.py`设置的端口号，默认 5008）。
 
-6. 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
+（6） 在机器人详情页面的「传入 Webhook」部分，将生成一个 Webhook URL 和一个 Token，记录下这些值，按照下面第 3 步修改 `settings.py`中的`INCOMING_WEBHOOK_URL`和`OUTGOING_WEBHOOK_TOKEN`。
 
-7. 最后点击「确认」（OK）保存。
+（7） 最后点击「确认」（OK）保存。
 
 ### 2. 使用Docker进行部署
 #### 示例
