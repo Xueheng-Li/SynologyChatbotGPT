@@ -45,7 +45,9 @@
 
 ## 使用方法
 
-### 1. 群晖 Chat 客户端按照以下步骤添加聊天机器人：
+### 1. 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥。
+
+### 2. 群晖 Chat 客户端按照以下步骤添加聊天机器人：
 
 （1） 用有管理员权限的账户登录 Synology Chat。
 
@@ -61,7 +63,7 @@
 
 （7） 最后点击「确认」（OK）保存。
 
-### 2. 使用Docker进行部署
+### 3. 使用Docker进行部署
 #### 示例
 
 ```
@@ -93,10 +95,10 @@ xueheng/synogpt:latest
 | `serpapi_key` | SerpApi 密钥，以启用 google 搜索         | None                                                                | 否 |
 
 
-### 3. 不使用 Docker 进行部署的方法：
+### 4. 不使用 Docker 进行部署：
 
 
-（1） 在<https://platform.openai.com/account/api-keys>申请 OpenAI API 密钥，用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
+（1） 用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
 
     ```python
