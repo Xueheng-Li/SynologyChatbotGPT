@@ -12,6 +12,8 @@
 
 3. 可调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索实时信息回答问题。
 
+可以通过 docker 一行命令部署。
+
 ## 功能说明
 
 1. `basicBot`和`talentBot`的区别及使用说明（Docker 版本使用`talentBot`）：
