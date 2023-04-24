@@ -149,7 +149,7 @@ dl_key = None # the translation uses the DeepL api; hence an deepl api key is re
     
 （3）  安装所需的库：
 
-在bash shell中运行：
+在terminal/bash shell中运行：
 
 ```bash
 pip install -r requirements.txt 
@@ -157,7 +157,7 @@ pip install -r requirements.txt
 
 （4）  运行 Python 文件：
 
-在bash shell中运行`basicBot`：
+在terminal/bash shell中运行`basicBot`：
 
 ```
 python basicBot.py
