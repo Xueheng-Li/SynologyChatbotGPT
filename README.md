@@ -12,7 +12,7 @@
 
 3. 可调用一众搜索引擎（Google, Bing, Baidu, DuckDuckGo）搜索实时信息回答问题。
 
-可以通过 docker 一行命令部署。*示例：
+可以通过 docker 一行命令部署。示例：
 ```
 docker run -d --name synobot \
 -p 5008:5008 \
