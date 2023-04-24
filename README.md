@@ -103,71 +103,71 @@ xueheng/synogpt:latest
 （1） 用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
 
-    ```python
-    openai_api_key = "your_api_key_here"
-    ```
+```python
+openai_api_key = "your_api_key_here"
+```
     
 （2） 更改`settings.py`中的其他设置：
 
-    ```
-    # Replace with your Synology Chat bot details
-    INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"
-    OUTGOING_WEBHOOK_TOKEN = "your_OUTGOING_WEBHOOK_TOKEN"
+```
+# Replace with your Synology Chat bot details
+INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"
+OUTGOING_WEBHOOK_TOKEN = "your_OUTGOING_WEBHOOK_TOKEN"
 
-    # Your server IP address；你运行本聊天机器人的服务器 ip，如果你就在同一台群晖上跑这个程序，那就是群晖的内网 ip；如果是另一台机子上运行，就是另一台机子的 ip
-    your_server_ip = 'your_server_ip'
+# Your se   rver IP address；你运行本聊天机器人的服务器 ip，如果你就在同一台群晖上跑这个程序，那就是群晖的内网 ip；如果是另一台机子上运行，就是另一台机子的 ip
+your_server_ip = 'your_server_ip'
 
-    # Port
-    PORT = 5008
+# Port
+PORT = 5008
 
-    # System prompt sets up the character of the chatbot; change it if you want
-    system_prompt = '''你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。'''
+# System prompt sets up the character of the chatbot; change it if you want
+system_prompt = '''你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。'''
 
 
-    # Set maximum conversation exchanges or idle time gap to start a new conversatoin
-    max_conversation_length = 20 
-    max_time_gap = 15 # minutes
-    
-    # 默认启用 stream 方法；如果要让 gpt 生成代码，需要关闭 stream 功能
-    stream=True
-    
-    # get your free bing search api key here: https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
-    bing_key = "your_key_for_Bing_search" 
-    
-    # get your free serpapi_key for using Google here: https://serpapi.com/
-    serpapi_key = "your_serpapi_key_for_google_search"
-    
-    
-    # 若要使用翻译功能，此处改为 True，并且需要申请一个DeepL的 api key：https://www.deepl.com/docs-api
-    translate_to_chinese = False # True or False; 
-                             # if True, the bot will send chinese translation for any non-chinese gpt response
-                             # 如果设置为 True，必须提供下面的 dl_key，否则会报错
-    dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
-                  # then change this varaible to something like: dl_key = "xxx-xxx-xxx-xxx-xxxx:fx"
-    
-    ```
+# Set maximum conversation exchanges or idle time gap to start a new conversatoin
+max_conversation_length = 20 
+max_time_gap = 15 # minutes
+
+# 默认启用 stream 方法；如果要让 gpt 生成代码，需要关闭 stream 功能
+stream=True
+
+# get your free bing search api key here: https://learn.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
+bing_key = "your_key_for_Bing_search" 
+
+# get your free serpapi_key for using Google here: https://serpapi.com/
+serpapi_key = "your_serpapi_key_for_google_search"
+
+
+# 若要使用翻译功能，此处改为 True，并且需要申请一个DeepL的 api key：https://www.deepl.com/docs-api
+translate_to_chinese = False # True or False; 
+                         # if True, the bot will send chinese translation for any non-chinese gpt response
+                         # 如果设置为 True，必须提供下面的 dl_key，否则会报错
+dl_key = None # the translation uses the DeepL api; hence an deepl api key is required; 
+              # then change this varaible to something like: dl_key = "xxx-xxx-xxx-xxx-xxxx:fx"
+
+```         
     
 （3）  安装所需的库：
 
-    在bash shell中运行：
-    
-    ```bash
-    pip install -r requirements.txt 
-    ```
+在bash shell中运行：
+
+```bash
+pip install -r requirements.txt 
+```
 
 （4）  运行 Python 文件：
 
-    在bash shell中运行`basicBot`：
+在bash shell中运行`basicBot`：
 
-    ```bash
-    python basicBot.py
-    ```
-    
-    使用`talentBot`时先在`talentBot.py`所在文件夹新创建一个名为`static`的文件夹，然后运行：
+```
+python basicBot.py
+```
 
-    ```bash
-    python talentBot.py
-    ```
+使用`talentBot`时先在`talentBot.py`所在文件夹新创建一个名为`static`的文件夹，然后运行：
+
+```
+python talentBot.py
+```
     
 
 （5） 在 Synology Chat 中与机器人进行对话。如果运行的是`basicBot.py`，那么任何你的输入，机器人都将使用OpenAI的 gpt-3.5-turbo 模型生成回复。关于`talentBot.py`的使用请参考前述更新说明。
