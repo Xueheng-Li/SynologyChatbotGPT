@@ -94,7 +94,7 @@ xueheng/synogpt:latest
 | `OPENAI_API_KEY` | 你的 OpenAI API 密钥                 | 无                                                                                     | 是 |
 | `INCOMING_WEBHOOK_URL` | Synology Chat 机器人的传入 Webhook URL | 无                                                                                     | 是 |
 | `WEBHOOK_TOKEN` | Synology Chat 机器人的传出 Webhook 令牌  | 无                                                                                     | 是 |
-|   `model`    | 设置使用的 openai 语言模型 | gpt-3.5-turbo | 否
+|   `model`    | 设置使用的 openai 语言模型 | gpt-3.5-turbo (可改为gpt-4)| 否
 | `SERVER_IP` | 运行脚本的服务器 IP 地址                   | 127.0.0.1                                                                             | 否 | 
 | `system_prompt` | 聊天机器人的角色                         | '你是全能君，一名智能助手。你的使命是尽可能地用详尽的、温暖的、友善的话语帮助我和我的家人，在各种方面提供帮助和支持。无论我需要什么帮助或建议，你都会尽力提供详尽信息。' | 否 |
 | `max_conversation_length` | 对话历史记录次数长度                        | 10                                                                                    | 否 |
