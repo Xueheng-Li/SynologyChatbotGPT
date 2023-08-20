@@ -110,6 +110,17 @@ xueheng/synogpt:latest
 
 ### 4. 不使用 Docker 进行部署：
 
+（0） 下载仓库到本地：
+
+```bash
+git clone https://github.com/Xueheng-Li/SynologyChatbotGPT.git
+```
+
+然后
+
+```bash
+cd SynologyChatbotGPT
+```
 
 （1） 用你的 OpenAI API 密钥替换`settings.py`中的`openai.api_key`：
     
