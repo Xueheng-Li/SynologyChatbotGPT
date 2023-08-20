@@ -2,6 +2,8 @@
 # Replace with your OpenAI API key
 openai_api_key = "your_openai_api_key"
 
+# example "https://oa.api2d.net/v1" or "NULL"
+openai_api_proxy = "NULL" 
 
 # Replace with your Synology Chat bot details
 INCOMING_WEBHOOK_URL = "your_INCOMING_WEBHOOK_URL"

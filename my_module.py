@@ -37,6 +37,9 @@ from settings import *
 
 from urllib.parse import quote
 
+if openai_api_proxy != "NULL":
+	openai.api_base = openai_api_proxy
+
 # Capture and Execute Python Code in GPT-3 Response
 def capture_python_output(code, venv_path=venv_path):
     # The selected code modifies the input Python code to print the last expression in the code.
