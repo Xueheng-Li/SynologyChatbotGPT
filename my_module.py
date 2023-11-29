@@ -677,30 +677,31 @@ class ChatBot:
                     # print(r.choices[0]["delta"])
                     if "content" in r.choices[0]["delta"]:
                         word = r.choices[0]["delta"]["content"]
-                        text.append(word)
-                        whole_text.append(word)
+                        if word is not None:
+                            text.append(word)
+                            whole_text.append(word)
 
-                        # Check if the current output ends with \n
-                        if re.search(r'[\n]', word[-1]):
-                            sentence = ''.join(text).strip()
+                            # Check if the current output ends with \n
+                            if re.search(r'[\n]', word[-1]):
+                                sentence = ''.join(text).strip()
 
-                            if re.search(r'`{3}$', sentence) and code_block:
-                                # print("code: " ,  code_block , ", sentence: " + sentence)
-                                send_back_message(self.user_id, sentence)
-                                text = []
-                                code_block = False
-                            else:
-                                if re.search(r'`{3}', sentence) and not code_block:
-                                    code_block = True
-                                    if re.search(r'\n', sentence):
-                                        sentences = text.split("\n")
-                                        send_back_message(self.user_id, sentences[0])
-                                        sentence = sentences[1]
-
-                                if not code_block:
-                                    sentence = sentence.replace("\n", "")
-                                    send_stream(self.user_id, sentence)
+                                if re.search(r'`{3}$', sentence) and code_block:
+                                    # print("code: " ,  code_block , ", sentence: " + sentence)
+                                    send_back_message(self.user_id, sentence)
                                     text = []
+                                    code_block = False
+                                else:
+                                    if re.search(r'`{3}', sentence) and not code_block:
+                                        code_block = True
+                                        if re.search(r'\n', sentence):
+                                            sentences = text.split("\n")
+                                            send_back_message(self.user_id, sentences[0])
+                                            sentence = sentences[1]
+
+                                    if not code_block:
+                                        sentence = sentence.replace("\n", "")
+                                        send_stream(self.user_id, sentence)
+                                        text = []
                 text = ''.join(text)
                 if len(text) > 0:
                     send(self.user_id, text, stream=self.stream)
